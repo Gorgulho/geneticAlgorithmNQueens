@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 public class SGA {
     Population populacao;
     IProblem fitness;
@@ -14,5 +16,15 @@ public class SGA {
             }
         }
         return false;
+    }
+
+    public Individual solve(int l) {
+        while (!searchBoardWinner()) {
+            this.populacao = this.populacao.tournamentSelecNoReplacement(l, this.fitness);
+            this.populacao = this.populacao.crossOver(this.fitness);
+            this.populacao = this.populacao.mutation();
+        }
+        populacao.getIndividuals().sort((s1, s2) -> (int) Math.signum(s1.getFitness() - s2.getFitness()));
+        return populacao.getIndividuals().get(0);
     }
 }

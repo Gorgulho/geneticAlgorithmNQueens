@@ -2,7 +2,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Population {
-
     private final LinkedList<Individual> individuals;
     private static final Random generator = new Random(0);
 

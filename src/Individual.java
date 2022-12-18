@@ -6,9 +6,9 @@ public class Individual {
         this.chromossoma = chromossoma;
     }
 
-    public Individual (int[] chromossoma, double fitness) {
+    public Individual (int[] chromossoma, IProblem fitness) {
         this.chromossoma = chromossoma;
-        this.fitness = fitness;
+        this.fitness = fitness.fitness(this);
     }
 
     public int[] getChromossoma() {

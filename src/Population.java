@@ -4,9 +4,9 @@ public class Population {
     private LinkedList<Individual> individuals;
     private static final Random generator = new Random(0);
 
-    public Population(int l, IProblem fitness) {
+    public Population(int l, int n, IProblem fitness) {
         individuals = new LinkedList<>();
-        for (int i = 0; i < l*l; i++){
+        for (int i = 0; i < l*n; i++){
             this.individuals.add(new Individual(randPermutation(l), fitness));
         }
         individuals.sort((s1, s2) -> (int) Math.signum(s1.getFitness() - s2.getFitness()));
@@ -81,6 +81,18 @@ public class Population {
                     }
                 }
                 result.add(best);
+            }
+        }
+        return new Population(result, fitness);
+    }
+
+    public Population crossOver(Population p, IProblem fitness) {
+        LinkedList<Individual> result = new LinkedList<>(p.getIndividuals());
+        double d;
+        for (int i = 0; i < result.size(); i+=2) {
+            d = generator.nextDouble();
+            if (d < 0.5) {
+                result.get(i).cycleCrossover(result.get(i+1));
             }
         }
         return new Population(result, fitness);

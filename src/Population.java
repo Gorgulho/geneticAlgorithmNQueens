@@ -32,6 +32,18 @@ public class Population {
         return v;
     }
 
+    public void mutation(){
+        for(Individual ind : individuals){
+            for(int i = 0; i < ind.getChromossoma().length-1; i++){
+                double d = generator.nextDouble();
+                if(d < 0.5){
+                    int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
+                    ind.swapMutation(i, r);
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

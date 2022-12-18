@@ -83,6 +83,12 @@ public class Individual {
         return filho;
     }
 
+    public void swapMutation(int i, int j){
+        int temp = this.chromossoma[i];
+        this.chromossoma[i] = this.chromossoma[j];
+        this.chromossoma[j] = temp;
+    }
+
     public String toString() {
         StringBuilder a = new StringBuilder();
         for (int i = 0; i < chromossoma.length; i++) {

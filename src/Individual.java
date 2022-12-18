@@ -26,7 +26,9 @@ public class Individual {
         return this.fitness;
     }
 
-
+    public void setFitness (int f) {
+        this.fitness = f;
+    }
 
     private int definido (Individual filho) {
         for (int i = 0; i < filho.chromossoma.length; i++) {

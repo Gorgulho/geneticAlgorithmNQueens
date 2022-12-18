@@ -1,15 +1,19 @@
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 public class Population {
-    private final LinkedList<Individual> individuals;
+    private LinkedList<Individual> individuals;
     private static final Random generator = new Random(0);
 
-    public Population(int l) {
+    public Population(int l, IProblem fitness) {
         individuals = new LinkedList<>();
-        for (int i = 0; i < l*2; i++){
-            individuals.add(new Individual(randPermutation(l)));
+        for (int i = 0; i < l*l; i++){
+            this.individuals.add(new Individual(randPermutation(l), fitness));
         }
+        individuals.sort((s1, s2) -> (int) Math.signum(s1.getFitness() - s2.getFitness()));
+    }
+
+    public LinkedList<Individual> getIndividuals() {
+        return individuals;
     }
 
     public int[] randPermutation(int n){

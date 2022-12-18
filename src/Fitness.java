@@ -1,7 +1,7 @@
 public class Fitness implements IProblem {
 
     @Override
-    public double fitness(Individual individuo) {
+    public int fitness(Individual individuo) {
         int result = 0;
         int dim = individuo.getChromossoma().length;
         int []chromossomas = individuo.getChromossoma();

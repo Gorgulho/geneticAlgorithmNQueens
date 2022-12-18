@@ -1,6 +1,6 @@
 public class Individual {
     private int[] chromossoma;
-    private double fitness;
+    private int fitness;
 
     public Individual (int[] chromossoma) {
         this.chromossoma = chromossoma;
@@ -15,6 +15,10 @@ public class Individual {
         return chromossoma;
     }
 
+    public int getFitness() {
+        return this.fitness;
+    }
+
     public String toString() {
         StringBuilder a = new StringBuilder();
         for (int i = 0; i < chromossoma.length; i++) {
@@ -24,6 +28,9 @@ public class Individual {
             }
             a.append("\n");
         }
+        a.append("Fitness: " + this.fitness + "\n");
         return a.toString();
     }
+
+
 }

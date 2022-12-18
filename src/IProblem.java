@@ -1,5 +1,3 @@
 interface IProblem {
-
-    double fitness(Individual individuo);
-
+    int fitness(Individual individuo);
 }

@@ -105,8 +105,8 @@ public class Population {
         for (int i = 0; i < individuals.size()-1; i+=2) {
             d = generator.nextDouble();
             if (d < 0.8) {
-                result.add(individuals.get(i).PMXCrossover(individuals.get(i+1)));
-                result.add(individuals.get(i+1).PMXCrossover(individuals.get(i)));
+                result.add(individuals.get(i).PMXCrossover(individuals.get(i+1), generator));
+                result.add(individuals.get(i+1).PMXCrossover(individuals.get(i), generator));
             } else {
                 result.add(individuals.get(i));
                 result.add(individuals.get(i+1));

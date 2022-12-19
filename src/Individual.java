@@ -107,11 +107,11 @@ public class Individual {
         return a.toString();
     }
 
-    public Individual PMXCrossover(Individual p2) {
+    public Individual PMXCrossover(Individual p2, Random rand) {
         int[] child = new int[this.chromossoma.length];
 
         // Choose random crossover points
-        Random rand = new Random();
+        //Random rand = new Random(0);
         int point1 = rand.nextInt(this.chromossoma.length);
         int point2 = rand.nextInt(this.chromossoma.length);
         if (point2 < point1) {

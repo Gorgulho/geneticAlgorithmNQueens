@@ -100,12 +100,16 @@ public class Population {
     }
 
     public Population crossOver1(IProblem fitness) {
-        LinkedList<Individual> result = new LinkedList<>(this.getIndividuals());
+        LinkedList<Individual> result = new LinkedList<>();
         double d;
-        for (int i = 0; i < result.size()-1; i+=2) {
+        for (int i = 0; i < individuals.size()-1; i+=2) {
             d = generator.nextDouble();
             if (d < 0.8) {
-                result.get(i).PMXCrossover(result.get(i+1));
+                result.add(individuals.get(i).PMXCrossover(individuals.get(i+1)));
+                result.add(individuals.get(i+1).PMXCrossover(individuals.get(i)));
+            } else {
+                result.add(individuals.get(i));
+                result.add(individuals.get(i+1));
             }
         }
         return new Population(result, fitness);

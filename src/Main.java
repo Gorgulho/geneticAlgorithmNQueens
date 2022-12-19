@@ -6,7 +6,7 @@ public class Main {
 //        Population pop = new Population(6, new Fitness());
 //        System.out.println(pop.getIndividuals().get(0));
 
-        int[] ch1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        /*int[] ch1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] ch2 = {9, 3, 7, 8, 2, 6, 5, 1, 4};
         Individual p1 = new Individual(ch1, new Fitness());
         Individual p2 = new Individual(ch2, new Fitness());
@@ -21,7 +21,7 @@ public class Main {
         System.out.println("\nf2");
         for(int el : f2.getChromossoma()){
             System.out.print(el + " ");
-        }
+        }*/
 
         Scanner sc = new Scanner(System.in);
         int l = sc.nextInt();

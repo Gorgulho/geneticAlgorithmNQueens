@@ -4,9 +4,9 @@ public class Population {
     private LinkedList<Individual> individuals;
     private static final Random generator = new Random(0);
 
-    public Population(int l, int n, IProblem fitness) {
+    public Population(int l, IProblem fitness) {
         individuals = new LinkedList<>();
-        for (int i = 0; i < l*n; i++){
+        for (int i = 0; i < l*2; i++){
             this.individuals.add(new Individual(randPermutation(l), fitness));
         }
     }
@@ -39,13 +39,15 @@ public class Population {
         return v;
     }
 
-    public void mutation(){
+    public void mutation(IProblem fitness){
         for(Individual ind : individuals){
             for(int i = 0; i < ind.getChromossoma().length-1; i++){
                 double d = generator.nextDouble();
-                if(d < 0.5){
+                if(d < 0.1){
                     int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
                     ind.swapMutation(i, r);
+                    int fit = fitness.fitness(ind);
+                    ind.setFitness(fit);
                 }
             }
         }
@@ -88,9 +90,9 @@ public class Population {
     public Population crossOver(IProblem fitness) {
         LinkedList<Individual> result = new LinkedList<>(this.getIndividuals());
         double d;
-        for (int i = 0; i < result.size(); i+=2) {
+        for (int i = 0; i < result.size()-1; i+=2) {
             d = generator.nextDouble();
-            if (d < 0.5) {
+            if (d < 0.8) {
                 result.get(i).cycleCrossover(result.get(i+1));
             }
         }

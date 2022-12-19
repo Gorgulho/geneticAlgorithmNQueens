@@ -22,7 +22,7 @@ public class SGA {
         Individual l1 = null;
         while ((l1 = searchBoardWinner()) == null) {
             this.populacao = this.populacao.tournamentSelecNoReplacement(l, this.fitness);
-            this.populacao = this.populacao.crossOver(this.fitness);
+            this.populacao = this.populacao.crossOver1(this.fitness);
             this.populacao.mutation(this.fitness);
         }
         return l1;

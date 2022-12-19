@@ -10,5 +10,7 @@ public class Main {
         SGA a = new SGA(l, new Fitness());
         Individual b = a.solve(l);
         System.out.println(b);
+
+
     }
 }

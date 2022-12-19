@@ -43,7 +43,7 @@ public class Population {
         for(Individual ind : individuals){
             for(int i = 0; i < ind.getChromossoma().length-1; i++){
                 double d = generator.nextDouble();
-                if(d < 0.1){
+                if(d < 0.5){
                     int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
                     ind.swapMutation(i, r);
                     int fit = fitness.fitness(ind);
@@ -94,6 +94,18 @@ public class Population {
             d = generator.nextDouble();
             if (d < 0.8) {
                 result.get(i).cycleCrossover(result.get(i+1));
+            }
+        }
+        return new Population(result, fitness);
+    }
+
+    public Population crossOver1(IProblem fitness) {
+        LinkedList<Individual> result = new LinkedList<>(this.getIndividuals());
+        double d;
+        for (int i = 0; i < result.size()-1; i+=2) {
+            d = generator.nextDouble();
+            if (d < 0.75) {
+                result.get(i).PMXCrossover(result.get(i+1));
             }
         }
         return new Population(result, fitness);

@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Individual {
@@ -106,5 +107,73 @@ public class Individual {
         return a.toString();
     }
 
+    public Individual PMXCrossover(Individual p2) {
+        int[] child = new int[this.chromossoma.length];
 
+        // Choose random crossover points
+        Random rand = new Random();
+        int point1 = rand.nextInt(this.chromossoma.length);
+        int point2 = rand.nextInt(this.chromossoma.length);
+        if (point2 < point1) {
+            int temp = point1;
+            point1 = point2;
+            point2 = temp;
+        }
+
+        // Copy section between crossover points from one parent to child
+        for (int i = point1; i <= point2; i++) {
+            child[i] = p2.getChromossoma()[i];
+        }
+
+        for(int i = 0; i < this.chromossoma.length; i++){
+            if (i < point1 || i > point2) {
+                if (!containsValue(child, this.chromossoma[i])) {
+                    child[i] = this.chromossoma[i];
+                }
+            }
+        }
+
+        int mid = (int) Math.ceil(this.chromossoma.length >> 1);
+        int i = mid;
+
+        LinkedList<Integer> zeros = getZeros(child);
+
+        while (i <= mid || i >= mid ){
+            if (!containsValue(child, this.chromossoma[i])) {
+                child[zeros.remove()] = this.chromossoma[i];
+            }
+            i++;
+            if (i == this.chromossoma.length){
+                i = 0;
+            }
+            if (i == mid) break;
+        }
+
+        return new Individual(child);
+    }
+
+    // Find index of a value in an array
+    private static int indexOf(int[] arr, int value) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static boolean containsValue(int[] arr, int value){
+        for (int el : arr){
+            if(el == value) return true;
+        }
+        return false;
+    }
+
+    private static LinkedList<Integer> getZeros(int[] arr) {
+        LinkedList<Integer> result = new LinkedList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) result.add(i);
+        }
+        return result;
+    }
 }

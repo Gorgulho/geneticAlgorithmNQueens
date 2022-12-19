@@ -120,9 +120,6 @@ public class Individual {
             point2 = temp;
         }
 
-        point1 = 3;
-        point2 = 6;
-
         // Copy section between crossover points from one parent to child
         for (int i = point1; i <= point2; i++) {
             child[i] = p2.getChromossoma()[i];

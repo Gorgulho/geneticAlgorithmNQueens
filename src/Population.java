@@ -104,7 +104,7 @@ public class Population {
         double d;
         for (int i = 0; i < result.size()-1; i+=2) {
             d = generator.nextDouble();
-            if (d < 0.75) {
+            if (d < 0.8) {
                 result.get(i).PMXCrossover(result.get(i+1));
             }
         }

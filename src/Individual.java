@@ -120,6 +120,9 @@ public class Individual {
             point2 = temp;
         }
 
+        point1 = 3;
+        point2 = 6;
+
         // Copy section between crossover points from one parent to child
         for (int i = point1; i <= point2; i++) {
             child[i] = p2.getChromossoma()[i];
@@ -133,20 +136,13 @@ public class Individual {
             }
         }
 
-        int mid = (int) Math.ceil(this.chromossoma.length >> 1);
-        int i = mid;
 
         LinkedList<Integer> zeros = getZeros(child);
 
-        while (i <= mid || i >= mid ){
-            if (!containsValue(child, this.chromossoma[i])) {
-                child[zeros.remove()] = this.chromossoma[i];
+        for(int i = 0; i < p2.getChromossoma().length; i++){
+            if (!containsValue(child, p2.getChromossoma()[i])) {
+                child[zeros.remove()] = p2.getChromossoma()[i];
             }
-            i++;
-            if (i == this.chromossoma.length){
-                i = 0;
-            }
-            if (i == mid) break;
         }
 
         return new Individual(child);

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Individual {
     private int[] chromossoma;
     private int fitness;

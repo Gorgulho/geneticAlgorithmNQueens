@@ -81,17 +81,22 @@ public class Population {
         return new Population(result);
     }
 
-//    public Population crossOver(IProblem fitness) {
-//        ArrayList<Individual> result = new ArrayList<>(this.getIndividuals());
-//        double d;
-//        for (int i = 0; i < result.size()-1; i+=2) {
-//            d = generator.nextDouble();
-//            if (d < 0.8) {
-//                result.get(i).cycleCrossover(result.get(i+1));
-//            }
-//        }
-//        return new Population(result, fitness);
-//    }
+    public Population crossOver(IProblem fitness) {
+        ArrayList<Individual> result = new ArrayList<>();
+        double d;
+        for (int i = 0; i < individuals.size()-1; i+=2) {
+            d = generator.nextDouble();
+            if (d < 0.8) {
+                result.add(individuals.get(i).cycleCrossover(individuals.get(i+1)));
+                result.add(individuals.get(i+1).cycleCrossover(individuals.get(i)));
+
+            } else {
+                result.add(individuals.get(i));
+                result.add(individuals.get(i+1));
+            }
+        }
+        return new Population(result);
+    }
 
     public Population crossOver1() {
         ArrayList<Individual> result = new ArrayList<>();

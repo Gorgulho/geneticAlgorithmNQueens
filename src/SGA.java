@@ -4,11 +4,20 @@ public class SGA {
     Population populacao;
     IProblem fitness;
 
+    /**
+     *SGA constructor
+     * @param l
+     * @param fitness
+     */
     public SGA(int l, IProblem fitness) {
         this.populacao = new Population(l, fitness);
         this.fitness = fitness;
     }
 
+    /**
+     *
+     * @return o objeto Individual que
+     */
     public Individual searchBoardWinner() {
         for (Individual l : this.populacao.getIndividuals()) {
             if (l.getFitness() == 0) {

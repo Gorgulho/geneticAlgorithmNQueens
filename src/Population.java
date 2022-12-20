@@ -1,21 +1,21 @@
 import java.util.*;
 
 public class Population {
-    private LinkedList<Individual> individuals;
+    private ArrayList<Individual> individuals;
     private static final Random generator = new Random(0);
 
     public Population(int l, IProblem fitness) {
-        individuals = new LinkedList<>();
+        individuals = new ArrayList<>();
         for (int i = 0; i < l*2; i++){
             this.individuals.add(new Individual(randPermutation(l), fitness));
         }
     }
 
-    public Population(LinkedList<Individual> result) {
-        this.individuals = new LinkedList<>(result);
+    public Population(ArrayList<Individual> result) {
+        this.individuals = new ArrayList<>(result);
     }
 
-    public LinkedList<Individual> getIndividuals() {
+    public ArrayList<Individual> getIndividuals() {
         return individuals;
     }
 
@@ -47,8 +47,8 @@ public class Population {
         }
     }
 
-    public LinkedList<Individual> randomPermutationNoReplacement () {
-        LinkedList<Individual> result = new LinkedList<>(this.individuals);
+    public ArrayList<Individual> randomPermutationNoReplacement () {
+        ArrayList<Individual> result = new ArrayList<>(this.individuals);
         int n = this.individuals.size();
         double d;
         int index;
@@ -63,8 +63,8 @@ public class Population {
     }
 
     public Population tournamentSelecNoReplacement (int s) {
-        LinkedList<Individual> result = new LinkedList<>();
-        LinkedList<Individual> permutation;
+        ArrayList<Individual> result = new ArrayList<>();
+        ArrayList<Individual> permutation;
         Individual best;
         for (int i = 0; i < s; i++) {
             permutation = randomPermutationNoReplacement();
@@ -82,7 +82,7 @@ public class Population {
     }
 
 //    public Population crossOver(IProblem fitness) {
-//        LinkedList<Individual> result = new LinkedList<>(this.getIndividuals());
+//        ArrayList<Individual> result = new ArrayList<>(this.getIndividuals());
 //        double d;
 //        for (int i = 0; i < result.size()-1; i+=2) {
 //            d = generator.nextDouble();
@@ -94,7 +94,7 @@ public class Population {
 //    }
 
     public Population crossOver1() {
-        LinkedList<Individual> result = new LinkedList<>();
+        ArrayList<Individual> result = new ArrayList<>();
         double d;
         for (int i = 0; i < individuals.size()-1; i+=2) {
             d = generator.nextDouble();

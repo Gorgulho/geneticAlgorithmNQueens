@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -134,11 +135,11 @@ public class Individual {
         }
 
 
-        LinkedList<Integer> zeros = getZeros(child);
+        ArrayList<Integer> zeros = getZeros(child);
 
         for(int i = 0; i < p2.getChromossoma().length; i++){
             if (!containsValue(child, p2.getChromossoma()[i])) {
-                child[zeros.remove()] = p2.getChromossoma()[i];
+                child[zeros.remove(0)] = p2.getChromossoma()[i];
             }
         }
 
@@ -162,8 +163,8 @@ public class Individual {
         return false;
     }
 
-    private static LinkedList<Integer> getZeros(int[] arr) {
-        LinkedList<Integer> result = new LinkedList<>();
+    private static ArrayList<Integer> getZeros(int[] arr) {
+        ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == 0) result.add(i);
         }

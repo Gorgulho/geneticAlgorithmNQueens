@@ -1,4 +1,5 @@
 import java.util.DoubleSummaryStatistics;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -11,13 +12,13 @@ public class Main {
         Individual p1 = new Individual(ch1, new Fitness());
         Individual p2 = new Individual(ch2, new Fitness());
 
-        Individual f1 = p1.PMXCrossover(p2);
+        Individual f1 = p1.PMXCrossover(p2, new Random(0));
         System.out.println("f1");
         for(int el : f1.getChromossoma()){
             System.out.print(el + " ");
         }
 
-        Individual f2 = p2.PMXCrossover(p1);
+        Individual f2 = p2.PMXCrossover(p1, new Random(0));
         System.out.println("\nf2");
         for(int el : f2.getChromossoma()){
             System.out.print(el + " ");

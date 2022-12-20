@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Individual {
-    private int[] chromossoma;
+    private final int[] chromossoma;
     private int fitness;
 
     public Individual (int[] chromossoma) {
@@ -22,18 +22,35 @@ public class Individual {
         this.fitness = fitness.fitness(this);
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getChromossoma() {
         return chromossoma;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getFitness() {
         return this.fitness;
     }
 
+    /**
+     *
+     * @param f
+     */
     public void setFitness (int f) {
         this.fitness = f;
     }
 
+    /**
+     *
+     * @param filho
+     * @return
+     */
     private int definido (Individual filho) {
         for (int i = 0; i < filho.chromossoma.length; i++) {
             if (filho.chromossoma[i] == -1) {
@@ -44,6 +61,13 @@ public class Individual {
     }
 
     //procura o indice do allele do cromossma2 que esta no cromossoma1
+
+    /**
+     *
+     * @param allele2
+     * @param p1
+     * @return
+     */
     public int searchAllele1 (int allele2, Individual p1) {
         for (int i = 0; i < p1.chromossoma.length; i++) {
             if (allele2 == p1.chromossoma[i]) {
@@ -53,6 +77,13 @@ public class Individual {
         return -1;
     }
 
+    /**
+     *
+     * @param p1
+     * @param p2
+     * @param result
+     * @param filho
+     */
     public void findCycle (Individual p1, Individual p2, int result, Individual filho) {
         int allele1 = p1.chromossoma[result];
         int i = result;
@@ -69,6 +100,11 @@ public class Individual {
         }
     }
 
+    /**
+     *
+     * @param p2
+     * @return
+     */
     public Individual cycleCrossover(Individual p2) {
         int result; //result é o numero de elementos dentro do ciclo
         int ciclos = 0; //numero de ciclos
@@ -89,12 +125,21 @@ public class Individual {
         return filho;
     }
 
+    /**
+     *
+     * @param i
+     * @param j
+     */
     public void swapMutation(int i, int j){
         int temp = this.chromossoma[i];
         this.chromossoma[i] = this.chromossoma[j];
         this.chromossoma[j] = temp;
     }
 
+    /**
+     *
+     * @return
+     */
     public String toString() {
         StringBuilder a = new StringBuilder();
         for (int i = 0; i < chromossoma.length; i++) {
@@ -108,8 +153,14 @@ public class Individual {
         return a.toString();
     }
 
+    /**
+     *
+     * @param p2
+     * @param rand
+     * @return
+     */
     public Individual PMXCrossover(Individual p2, Random rand) {
-        int[] child = new int[this.chromossoma.length];
+        Individual child = new Individual(this.chromossoma.length);
 
         // Choose random crossover points
         //Random rand = new Random(0);
@@ -123,30 +174,37 @@ public class Individual {
 
         // Copy section between crossover points from one parent to child
         for (int i = point1; i <= point2; i++) {
-            child[i] = p2.getChromossoma()[i];
+            child.chromossoma[i] = p2.getChromossoma()[i];
         }
 
         for(int i = 0; i < this.chromossoma.length; i++){
             if (i < point1 || i > point2) {
-                if (!containsValue(child, this.chromossoma[i])) {
-                    child[i] = this.chromossoma[i];
+                if (!containsValue(child.chromossoma, this.chromossoma[i])) {
+                    child.chromossoma[i] = this.chromossoma[i];
                 }
             }
         }
 
 
-        ArrayList<Integer> zeros = getZeros(child);
+        ArrayList<Integer> minusOnes = getMinusOnes(child.chromossoma, -1);
 
         for(int i = 0; i < p2.getChromossoma().length; i++){
-            if (!containsValue(child, p2.getChromossoma()[i])) {
-                child[zeros.remove(0)] = p2.getChromossoma()[i];
+            if (!containsValue(child.chromossoma, p2.getChromossoma()[i])) {
+                child.chromossoma[minusOnes.remove(0)] = p2.getChromossoma()[i];
             }
         }
 
-        return new Individual(child);
+        return child;
     }
 
     // Find index of a value in an array
+
+    /**
+     *
+     * @param arr
+     * @param value
+     * @return
+     */
     private static int indexOf(int[] arr, int value) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == value) {
@@ -156,6 +214,12 @@ public class Individual {
         return -1;
     }
 
+    /**
+     *
+     * @param arr
+     * @param value
+     * @return
+     */
     private static boolean containsValue(int[] arr, int value){
         for (int el : arr){
             if(el == value) return true;
@@ -163,10 +227,16 @@ public class Individual {
         return false;
     }
 
-    private static ArrayList<Integer> getZeros(int[] arr) {
+    /**
+     * It recieves an Integer array where the searche will be done
+     * @param arr Integer array where the serache will get place
+     * @param val Value that we want to check the ocurrences in arr
+     * @return ArrayList with all the indexes with the value -1
+     */
+    private static ArrayList<Integer> getMinusOnes(int[] arr, int val) {
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 0) result.add(i);
+            if (arr[i] == val) result.add(i);
         }
         return result;
     }

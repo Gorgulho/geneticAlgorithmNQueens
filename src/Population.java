@@ -81,7 +81,7 @@ public class Population {
         return new Population(result);
     }
 
-    public Population crossOver(IProblem fitness) {
+    public Population crossOver() {
         ArrayList<Individual> result = new ArrayList<>();
         double d;
         for (int i = 0; i < individuals.size()-1; i+=2) {

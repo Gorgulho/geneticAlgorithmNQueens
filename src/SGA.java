@@ -31,7 +31,7 @@ public class SGA {
         Individual l1 = null;
         while (l1 == null) {
             this.populacao = this.populacao.tournamentSelecNoReplacement(l);
-            this.populacao = this.populacao.crossOver1();
+            this.populacao = this.populacao.crossOver();
             this.populacao.mutation();
             l1 = this.populacao.calculateAll(this.fitness);
         }

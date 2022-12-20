@@ -6,13 +6,13 @@ public class Population {
 
     public Population(int l, IProblem fitness) {
         individuals = new ArrayList<>();
-        for (int i = 0; i < l*2; i++){
+        for (int i = 0; i < l*l; i++){
             this.individuals.add(new Individual(randPermutation(l), fitness));
         }
     }
 
     public Population(ArrayList<Individual> result) {
-        this.individuals = new ArrayList<>(result);
+        this.individuals = result;
     }
 
     public ArrayList<Individual> getIndividuals() {
@@ -39,7 +39,7 @@ public class Population {
         for(Individual ind : individuals){
             for(int i = 0; i < ind.getChromossoma().length-1; i++){
                 double d = generator.nextDouble();
-                if(d < 0.5){
+                if(d < 0.8){
                     int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
                     ind.swapMutation(i, r);
                 }
@@ -98,7 +98,7 @@ public class Population {
         double d;
         for (int i = 0; i < individuals.size()-1; i+=2) {
             d = generator.nextDouble();
-            if (d < 0.8) {
+            if (d < 0.95) {
                 result.add(individuals.get(i).PMXCrossover(individuals.get(i+1), generator));
                 result.add(individuals.get(i+1).PMXCrossover(individuals.get(i), generator));
             } else {

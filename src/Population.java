@@ -106,7 +106,6 @@ public class Population {
                 result.add(individuals.get(i+1));
             }
         }
-
         return new Population(result);
     }
 

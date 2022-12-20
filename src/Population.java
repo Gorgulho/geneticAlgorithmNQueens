@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Population {
     private final ArrayList<Individual> individuals;
-    private static final Random generator = new Random(0);
+    private final Random generator = new Random();
 
     public Population(int l, IProblem fitness) {
         individuals = new ArrayList<>();
@@ -52,21 +52,6 @@ public class Population {
         return new Population(result);
     }
 
-    public ArrayList<Individual> randomPermutationNoReplacement () {
-        ArrayList<Individual> result = new ArrayList<>(this.individuals);
-        int n = this.individuals.size();
-        double d;
-        int index;
-        for (int i = 0; i < n-1; i++) {
-            d = generator.nextDouble();
-            index = i + (int) Math.round(d*(n-1-i));
-            Individual old = result.get(i);
-            result.set(i, result.get(index));
-            result.set(index,old);
-        }
-        return result;
-    }
-
     public ArrayList<Individual> randomPopulationPermutation() {
         ArrayList<Individual> result = new ArrayList<>();
         int length = this.individuals.size();
@@ -103,26 +88,7 @@ public class Population {
         return id;
     }
 
-    public Population tournamentSelecNoReplacement (int s) {
-        ArrayList<Individual> result = new ArrayList<>();
-        ArrayList<Individual> permutation;
-        Individual best;
-        for (int i = 0; i < s; i++) {
-            permutation = randomPopulationPermutation();
-            for (int j = 0; j < this.individuals.size(); j+=s) {
-                best = permutation.get(j);
-                for (int k = j+1; k < j+s; k++) {
-                    if (best.getFitness() < permutation.get(k).getFitness()) {
-                        best = permutation.get(k);
-                    }
-                }
-                result.add(best);
-            }
-        }
-        return new Population(result);
-    }
-
-    public Population crossOver() {
+    public Population crossOverCX() {
         ArrayList<Individual> result = new ArrayList<>();
         double d;
         for (int i = 0; i < individuals.size(); i+=2) {
@@ -139,7 +105,7 @@ public class Population {
         return new Population(result);
     }
 
-    public Population crossOver1() {
+    public Population crossOverPMX() {
         ArrayList<Individual> result = new ArrayList<>();
         double d;
         for (int i = 0; i < individuals.size()-1; i+=2) {

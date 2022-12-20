@@ -154,7 +154,9 @@ public class Individual {
     }
 
     /**
-     *
+     * Partially Mapped Crossover, sets a random section of parent 2, copying it to the offspring,
+     * map all values, except for the positions in the selected section, from parent 1 and copy them to the offspring,
+     * at last copies the missing
      * @param p2
      * @param rand
      * @return
@@ -163,7 +165,6 @@ public class Individual {
         Individual child = new Individual(this.chromossoma.length);
 
         // Choose random crossover points
-        //Random rand = new Random(0);
         int point1 = rand.nextInt(this.chromossoma.length);
         int point2 = rand.nextInt(this.chromossoma.length);
         if (point2 < point1) {
@@ -185,7 +186,6 @@ public class Individual {
             }
         }
 
-
         ArrayList<Integer> minusOnes = getMinusOnes(child.chromossoma, -1);
 
         for(int i = 0; i < p2.getChromossoma().length; i++){
@@ -197,25 +197,8 @@ public class Individual {
         return child;
     }
 
-    // Find index of a value in an array
-
     /**
-     *
-     * @param arr
-     * @param value
-     * @return
-     */
-    private static int indexOf(int[] arr, int value) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == value) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Check if arr contains a specified value
+     * Check if array contains a specified value
      * @param arr Integer array where the serache will get place
      * @param value Value that we want to check if existes in arr
      * @return True if the value was found, False otherwise

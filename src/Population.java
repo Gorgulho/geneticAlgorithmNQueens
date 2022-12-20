@@ -6,7 +6,8 @@ public class Population {
 
     public Population(int l, IProblem fitness) {
         individuals = new ArrayList<>();
-        for (int i = 0; i < l*l; i++){
+        int n = l*l;
+        for (int i = 0; i < n; i++){
             this.individuals.add(new Individual(randPermutation(l), fitness));
         }
     }
@@ -82,7 +83,7 @@ public class Population {
         for (int i = 0; i < s; i++){
             permutations = (randomPopulationPermutation());
             for (int j = 0; j < this.individuals.size(); j+=s){
-                int indexMax = getMaxFitnessGroup(permutations, j, j + s - 1);
+                int indexMax = getMaxFitnessGroup(permutations, j, j + s);
                 winners.add(permutations.get(indexMax));
             }
         }
@@ -124,11 +125,10 @@ public class Population {
     public Population crossOver() {
         ArrayList<Individual> result = new ArrayList<>();
         double d;
-        for (int i = 0; i < individuals.size()-1; i+=2) {
+        for (int i = 0; i < individuals.size(); i+=2) {
             d = generator.nextDouble();
             if (d < 0.95) {
                 result.add(individuals.get(i).cycleCrossover(individuals.get(i+1)));
-
                 result.add(individuals.get(i+1).cycleCrossover(individuals.get(i)));
 
             } else {

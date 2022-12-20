@@ -35,7 +35,7 @@ public class Main {
             System.out.print(el + " ");
         }*/
 
-        testSomeValues();
+        //testSomeValues();
 
         Scanner sc = new Scanner(System.in);
         int l = sc.nextInt();

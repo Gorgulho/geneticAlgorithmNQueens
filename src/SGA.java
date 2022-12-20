@@ -32,7 +32,7 @@ public class SGA {
         while (l1 == null) {
             this.populacao = this.populacao.selectionTournament(l);
             this.populacao = this.populacao.crossOver();
-            this.populacao.mutation();
+            this.populacao = this.populacao.mutation();
             l1 = this.populacao.calculateAll(this.fitness);
         }
         return l1;

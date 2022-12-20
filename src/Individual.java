@@ -52,8 +52,8 @@ public class Individual {
      * @return
      */
     private int definido (Individual filho) {
-        for (int i = 0; i < filho.chromossoma.length; i++) {
-            if (filho.chromossoma[i] == -1) {
+        for (int i = 0; i < filho.getChromossoma().length; i++) {
+            if (filho.getChromossoma()[i] == -1) {
                 return i;
             }
         }

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Population {
-    private ArrayList<Individual> individuals;
+    private final ArrayList<Individual> individuals;
     private static final Random generator = new Random(0);
 
     public Population(int l, IProblem fitness) {
@@ -35,16 +35,20 @@ public class Population {
         return v;
     }
 
-    public void mutation(){
+    public Population mutation(){
+        ArrayList<Individual> result = new ArrayList<>();
         for(Individual ind : individuals){
-            for(int i = 0; i < ind.getChromossoma().length-1; i++){
+            Individual a = new Individual(ind.getChromossoma());
+            for(int i = 0; i < a.getChromossoma().length-1; i++){
                 double d = generator.nextDouble();
                 if(d < 0.8){
                     int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
-                    ind.swapMutation(i, r);
+                    a.swapMutation(i, r);
                 }
             }
+            result.add(a);
         }
+        return new Population(result);
     }
 
     public ArrayList<Individual> randomPermutationNoReplacement () {
@@ -124,6 +128,7 @@ public class Population {
             d = generator.nextDouble();
             if (d < 0.95) {
                 result.add(individuals.get(i).cycleCrossover(individuals.get(i+1)));
+
                 result.add(individuals.get(i+1).cycleCrossover(individuals.get(i)));
 
             } else {

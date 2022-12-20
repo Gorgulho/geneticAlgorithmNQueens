@@ -30,7 +30,7 @@ public class SGA {
     public Individual solve(int l) {
         Individual l1 = null;
         while (l1 == null) {
-            this.populacao = this.populacao.tournamentSelecNoReplacement(l);
+            this.populacao = this.populacao.selectionTournament(l);
             this.populacao = this.populacao.crossOver();
             this.populacao.mutation();
             l1 = this.populacao.calculateAll(this.fitness);

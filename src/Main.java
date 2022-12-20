@@ -27,8 +27,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int l = sc.nextInt();
         SGA a = new SGA(l, new Fitness());
+        long startTime1 = System.nanoTime();
         Individual b = a.solve(l);
+        long endTime1 = System.nanoTime();
         System.out.println(b);
+        System.out.println((float) (endTime1 - startTime1) / 1000000000 + " segundos");
 
 //        int []a = {0,1,2,3,4,5,6,7,8,9};
 //        Individual a1 = new Individual(a);

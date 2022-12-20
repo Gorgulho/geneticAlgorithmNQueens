@@ -62,12 +62,48 @@ public class Population {
         return result;
     }
 
+    public ArrayList<Individual> randomPopulationPermutation() {
+        ArrayList<Individual> result = new ArrayList<>();
+        int length = this.individuals.size();
+        int[] v = randPermutation(length);
+        for(int i: v){
+            result.add(this.individuals.get(i));
+        }
+        return result;
+    }
+
+    public Population selectionTournament(int s){
+        ArrayList<Individual> winners = new ArrayList<>();
+        ArrayList<Individual> permutations;
+        for (int i = 0; i < s; i++){
+            permutations = (randomPopulationPermutation());
+            for (int j = 0; j < this.individuals.size()-s+1; j+=s){
+                int indexMax = getMaxFitnessGroup(permutations, j, j + s);
+                winners.add(permutations.get(indexMax));
+            }
+        }
+
+        return new Population(winners);
+    }
+
+    private int getMaxFitnessGroup(ArrayList<Individual> ind, int start, int end){
+        double max = ind.get(start).getFitness();
+        int id = start;
+        for (int i = start + 1; i < end; i++){
+            if (ind.get(i).getFitness() > max){
+                max =  ind.get(i).getFitness();
+                id = i;
+            }
+        }
+        return id;
+    }
+
     public Population tournamentSelecNoReplacement (int s) {
         ArrayList<Individual> result = new ArrayList<>();
         ArrayList<Individual> permutation;
         Individual best;
         for (int i = 0; i < s; i++) {
-            permutation = randomPermutationNoReplacement();
+            permutation = randomPopulationPermutation();
             for (int j = 0; j < this.individuals.size(); j+=s) {
                 best = permutation.get(j);
                 for (int k = j+1; k < j+s; k++) {
@@ -86,7 +122,7 @@ public class Population {
         double d;
         for (int i = 0; i < individuals.size()-1; i+=2) {
             d = generator.nextDouble();
-            if (d < 0.8) {
+            if (d < 0.95) {
                 result.add(individuals.get(i).cycleCrossover(individuals.get(i+1)));
                 result.add(individuals.get(i+1).cycleCrossover(individuals.get(i)));
 

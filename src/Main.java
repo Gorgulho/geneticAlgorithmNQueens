@@ -3,6 +3,17 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+
+    private static void testSomeValues(){
+        for (int i = 4; i <= 24; i+=4){
+            SGA a = new SGA(i, new Fitness());
+            long startTime1 = System.nanoTime();
+            Individual b = a.solve(i);
+            long endTime1 = System.nanoTime();
+            System.out.println("i = "+ i + " - " + (float) (endTime1 - startTime1) / 1000000000 + " segundos");
+        }
+    }
+
     public static void main(String[] args) {
 //        Population pop = new Population(6, new Fitness());
 //        System.out.println(pop.getIndividuals().get(0));
@@ -23,6 +34,8 @@ public class Main {
         for(int el : f2.getChromossoma()){
             System.out.print(el + " ");
         }*/
+
+        testSomeValues();
 
         Scanner sc = new Scanner(System.in);
         int l = sc.nextInt();

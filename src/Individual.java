@@ -215,10 +215,10 @@ public class Individual {
     }
 
     /**
-     *
-     * @param arr
-     * @param value
-     * @return
+     * Check if arr contains a specified value
+     * @param arr Integer array where the serache will get place
+     * @param value Value that we want to check if existes in arr
+     * @return True if the value was found, False otherwise
      */
     private static boolean containsValue(int[] arr, int value){
         for (int el : arr){

@@ -81,8 +81,8 @@ public class Population {
         ArrayList<Individual> permutations;
         for (int i = 0; i < s; i++){
             permutations = (randomPopulationPermutation());
-            for (int j = 0; j < this.individuals.size()-s+1; j+=s){
-                int indexMax = getMaxFitnessGroup(permutations, j, j + s);
+            for (int j = 0; j < this.individuals.size(); j+=s){
+                int indexMax = getMaxFitnessGroup(permutations, j, j + s - 1);
                 winners.add(permutations.get(indexMax));
             }
         }

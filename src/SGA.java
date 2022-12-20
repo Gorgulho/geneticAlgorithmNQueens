@@ -20,10 +20,11 @@ public class SGA {
 
     public Individual solve(int l) {
         Individual l1 = null;
-        while ((l1 = searchBoardWinner()) == null) {
-            this.populacao = this.populacao.tournamentSelecNoReplacement(l, this.fitness);
-            this.populacao = this.populacao.crossOver1(this.fitness);
-            this.populacao.mutation(this.fitness);
+        while (l1 == null) {
+            this.populacao = this.populacao.tournamentSelecNoReplacement(l);
+            this.populacao = this.populacao.crossOver1();
+            this.populacao.mutation();
+            l1 = this.populacao.calculateAll(this.fitness);
         }
         return l1;
     }

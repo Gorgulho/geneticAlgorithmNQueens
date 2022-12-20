@@ -11,12 +11,8 @@ public class Population {
         }
     }
 
-    public Population(LinkedList<Individual> result, IProblem fitness) {
-        this.individuals = result;
-        for (Individual i : this.individuals) {
-            int fit = fitness.fitness(i);
-            i.setFitness(fit);
-        }
+    public Population(LinkedList<Individual> result) {
+        this.individuals = new LinkedList<>(result);
     }
 
     public LinkedList<Individual> getIndividuals() {
@@ -39,15 +35,13 @@ public class Population {
         return v;
     }
 
-    public void mutation(IProblem fitness){
+    public void mutation(){
         for(Individual ind : individuals){
             for(int i = 0; i < ind.getChromossoma().length-1; i++){
                 double d = generator.nextDouble();
                 if(d < 0.5){
                     int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
                     ind.swapMutation(i, r);
-                    int fit = fitness.fitness(ind);
-                    ind.setFitness(fit);
                 }
             }
         }
@@ -68,7 +62,7 @@ public class Population {
         return result;
     }
 
-    public Population tournamentSelecNoReplacement (int s, IProblem fitness) {
+    public Population tournamentSelecNoReplacement (int s) {
         LinkedList<Individual> result = new LinkedList<>();
         LinkedList<Individual> permutation;
         Individual best;
@@ -84,22 +78,22 @@ public class Population {
                 result.add(best);
             }
         }
-        return new Population(result, fitness);
+        return new Population(result);
     }
 
-    public Population crossOver(IProblem fitness) {
-        LinkedList<Individual> result = new LinkedList<>(this.getIndividuals());
-        double d;
-        for (int i = 0; i < result.size()-1; i+=2) {
-            d = generator.nextDouble();
-            if (d < 0.8) {
-                result.get(i).cycleCrossover(result.get(i+1));
-            }
-        }
-        return new Population(result, fitness);
-    }
+//    public Population crossOver(IProblem fitness) {
+//        LinkedList<Individual> result = new LinkedList<>(this.getIndividuals());
+//        double d;
+//        for (int i = 0; i < result.size()-1; i+=2) {
+//            d = generator.nextDouble();
+//            if (d < 0.8) {
+//                result.get(i).cycleCrossover(result.get(i+1));
+//            }
+//        }
+//        return new Population(result, fitness);
+//    }
 
-    public Population crossOver1(IProblem fitness) {
+    public Population crossOver1() {
         LinkedList<Individual> result = new LinkedList<>();
         double d;
         for (int i = 0; i < individuals.size()-1; i+=2) {
@@ -112,7 +106,18 @@ public class Population {
                 result.add(individuals.get(i+1));
             }
         }
-        return new Population(result, fitness);
+        return new Population(result);
+    }
+
+    public Individual calculateAll (IProblem fitness) {
+        for (int i = 0; i < this.individuals.size(); i++) {
+            int fit = fitness.fitness(this.individuals.get(i));
+            this.individuals.get(i).setFitness(fit);
+            if (fit == 0) {
+                return this.individuals.get(i);
+            }
+        }
+        return null;
     }
 
     @Override

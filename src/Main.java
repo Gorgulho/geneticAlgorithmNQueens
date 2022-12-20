@@ -29,6 +29,10 @@ public class Main {
         Individual b = a.solve(l);
         System.out.println(b);
 
-
+//        int []a = {0,1,2,3,4,5,6,7,8,9};
+//        Individual a1 = new Individual(a);
+//        IProblem fitness = new Fitness();
+//        int d = fitness.fitness(a1);
+//        System.out.println(d);
     }
 }

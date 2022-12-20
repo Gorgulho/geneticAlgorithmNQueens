@@ -1,14 +1,57 @@
+import java.util.Arrays;
+
 public class Fitness implements IProblem {
+
+    public int calc (int n) {
+        if (n < 2) {
+            return 0;
+        }
+        if (n == 2) {
+            return 1;
+        }
+        return (n-1)*n/2;
+    }
+
 
     @Override
     public int fitness(Individual individuo) {
-        int result = 0;
-        int dim = individuo.getChromossoma().length;
-        int []chromossomas = individuo.getChromossoma();
-        for(int i = 0; i < dim-1; i++)
-            for(int j = i+1; j < dim; j++)
-                if(Math.abs(i-j) == Math.abs(chromossomas[i]-chromossomas[j]) || chromossomas[i] == chromossomas[j])
-                    result++;
-        return result;
+        int posDiagonal = 0;
+        int negDiagonal = 0;
+        int size = individuo.getChromossoma().length;
+        int []posDia = new int[size]; // (r+c)
+        int []negDia = new int[size]; // (r-c)
+        int []cromossoma = individuo.getChromossoma();
+        for (int i = 0; i < size; i++) {
+            posDia[i] = cromossoma[i]-i;
+            negDia[i] = cromossoma[i]+i;
+        }
+        Arrays.sort(posDia);
+        Arrays.sort(negDia);
+        int mpos = 1;
+        int aneg = 1;
+        for (int i = 0; i < size-1; i++) {
+            int j = i + 1;
+            if (posDia[i] == posDia[j]) {
+                mpos++;
+            }
+            else {
+                posDiagonal += calc(mpos);
+                mpos = 1;
+            }
+            if (negDia[i] == negDia[j]) {
+                aneg++;
+            }
+            else {
+                negDiagonal += calc(aneg);
+                aneg = 1;
+            }
+            if (j == size-1) {
+                posDiagonal += calc(mpos);
+                negDiagonal += calc(aneg);
+                break;
+            }
+        }
+
+        return posDiagonal+negDiagonal;
     }
 }

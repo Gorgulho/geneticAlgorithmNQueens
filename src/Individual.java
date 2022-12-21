@@ -101,9 +101,12 @@ public class Individual {
     }
 
     /**
-     *
-     * @param p2
-     * @return
+     * Cycle Crossover (CX)is a genetic algorithm operator used to combine two parent solutions to create a new
+     * offspring solution. Works by identifying cycles of values in two parents and swaping them to create the offspring.
+     * First identify the cycles of values in the two parent, next, we swap the values in the cycles to create the offspring
+     * The first Individual(parent) is p1, and it's the Individual who calls the method.
+     * @param p2 second Individual(parent) needed to make the crossover.
+     * @return new Individual with the resulting offspring from both parents.
      */
     public Individual cycleCrossover(Individual p2) {
         int result; //result é o numero de elementos dentro do ciclo
@@ -126,9 +129,9 @@ public class Individual {
     }
 
     /**
-     *
-     * @param i
-     * @param j
+     * Takes two positions and exchange them in the Individual Chromosome.
+     * @param i first index.
+     * @param j second index.
      */
     public void swapMutation(int i, int j){
         int temp = this.chromossoma[i];
@@ -137,8 +140,8 @@ public class Individual {
     }
 
     /**
-     *
-     * @return
+     * Returns a string representation of the object.
+     * @return a string representation of the object.
      */
     public String toString() {
         StringBuilder a = new StringBuilder();
@@ -154,12 +157,16 @@ public class Individual {
     }
 
     /**
-     * Partially Mapped Crossover, sets a random section of parent 2, copying it to the offspring,
-     * map all values, except for the positions in the selected section, from parent 1 and copy them to the offspring,
-     * at last copies the missing
-     * @param p2
-     * @param rand
-     * @return
+     * Partially Mapped Crossover (PMX) is a genetic algorithm operator used to combine two parents to create a new
+     * offspring. It is similar to cycle crossover (CX), but it works by creating a mapping between the values of the
+     * two parent solutions and swapping the mapped values to create the offspring.
+     * Sets a random section of p2 and copies it to the offspring,
+     * maps all values, except for the positions in the selected section, from p1 and copies them to the offspring,
+     * at last copies the missing values in the offspring in order from de p2.
+     * The first Individual(parent) is p1, and it's the Individual who calls the method.
+     * @param p2 second Individual(parent) needed to make the crossover.
+     * @param rand object type Random to generate the section.
+     * @return new Individual with the resulting offspring from both parents.
      */
     public Individual PMXCrossover(Individual p2, Random rand) {
         Individual child = new Individual(this.chromossoma.length);
@@ -198,10 +205,10 @@ public class Individual {
     }
 
     /**
-     * Check if array contains a specified value
-     * @param arr Integer array where the serache will get place
-     * @param value Value that we want to check if existes in arr
-     * @return True if the value was found, False otherwise
+     * Check if array contains a specified value.
+     * @param arr Integer array where the serache will get place.
+     * @param value Value that we want to check if existes in arr.
+     * @return True if the value was found, False otherwise.
      */
     private static boolean containsValue(int[] arr, int value){
         for (int el : arr){
@@ -211,10 +218,10 @@ public class Individual {
     }
 
     /**
-     * It recieves an Integer array where the searche will be done
-     * @param arr Integer array where the serache will get place
-     * @param val Value that we want to check the ocurrences in arr
-     * @return ArrayList with all the indexes with the value -1
+     * It recieves an Integer array where the searche will be done.
+     * @param arr Integer array where the serache will get place.
+     * @param val Value that we want to check the ocurrences in arr.
+     * @return ArrayList with all the indexes with the value -1.
      */
     private static ArrayList<Integer> getMinusOnes(int[] arr, int val) {
         ArrayList<Integer> result = new ArrayList<>();

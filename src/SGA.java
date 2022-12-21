@@ -1,5 +1,3 @@
-import java.util.Collections;
-
 public class SGA {
     Population populacao;
     IProblem fitness;

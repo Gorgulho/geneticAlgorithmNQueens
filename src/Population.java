@@ -182,11 +182,11 @@ public class Population {
      * @return Individual which the fitness is zero, if it doesn't exist returns null
      */
     public Individual calculateAll (IProblem fitness) {
-        for (int i = 0; i < this.individuals.size(); i++) {
-            int fit = fitness.fitness(this.individuals.get(i));
-            this.individuals.get(i).setFitness(fit);
+        for (Individual individual : this.individuals) {
+            int fit = fitness.fitness(individual);
+            individual.setFitness(fit);
             if (fit == 0) {
-                return this.individuals.get(i);
+                return individual;
             }
         }
         return null;

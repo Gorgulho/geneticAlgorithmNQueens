@@ -4,6 +4,11 @@ public class Population {
     private final ArrayList<Individual> individuals;
     private final Random generator = new Random();
 
+    /**
+     * Population constructor
+     * @param l length of chromosome
+     * @param fitness
+     */
     public Population(int l, IProblem fitness) {
         individuals = new ArrayList<>();
         int n = l*l;
@@ -12,14 +17,27 @@ public class Population {
         }
     }
 
+    /**
+     * Population constructor
+     * @param result ArrayList of Individuals to be assigned to the population
+     */
     public Population(ArrayList<Individual> result) {
         this.individuals = result;
     }
 
+    /**
+     *
+     * @return list of Individuals in the population
+     */
     public ArrayList<Individual> getIndividuals() {
         return individuals;
     }
 
+    /**
+     * int array of length 'n' is created and shuffled
+     * @param n length of array being returned
+     * @return int array
+     */
     public int[] randPermutation(int n){
         int[] v = new int[n];
         double r;
@@ -121,6 +139,11 @@ public class Population {
         return new Population(result);
     }
 
+    /**
+     * sets all fitness in the population
+     * @param fitness
+     * @return Individual which the fitness is zero, if it doesn't exist returns null
+     */
     public Individual calculateAll (IProblem fitness) {
         for (int i = 0; i < this.individuals.size(); i++) {
             int fit = fitness.fitness(this.individuals.get(i));
@@ -132,6 +155,9 @@ public class Population {
         return null;
     }
 
+    /**
+     * @hineritDoc
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

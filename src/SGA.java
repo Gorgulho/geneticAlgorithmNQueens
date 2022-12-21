@@ -15,18 +15,10 @@ public class SGA {
     }
 
     /**
-     *
-     * @return o objeto Individual que
+     * solves puzzle using sGA
+     * @param l length of chromosome
+     * @return solution of puzzle
      */
-    public Individual searchBoardWinner() {
-        for (Individual l : this.populacao.getIndividuals()) {
-            if (l.getFitness() == 0) {
-                return l;
-            }
-        }
-        return null;
-    }
-
     public Individual solve(int l) {
         Individual l1 = null;
         while (l1 == null) {

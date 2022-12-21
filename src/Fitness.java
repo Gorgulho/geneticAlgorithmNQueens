@@ -12,7 +12,12 @@ public class Fitness implements IProblem {
         return (n-1)*n/2;
     }
 
-
+    /**
+     * Method that takes one Individual and calculate the fitness.
+     * This fitness method calculates the number of atacks existing in the Indivivual, the lowest number is the best fitness.
+     * @param individuo Individual we want to calculate the fitness.
+     * @return Fitness value corresponding to the Individual.
+     */
     @Override
     public int fitness(Individual individuo) {
         int posDiagonal = 0;

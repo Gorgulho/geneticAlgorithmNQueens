@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Fitness implements IProblem {
 
-    public int calc (int n) {
+    private int calc (int n) {
         if (n < 2) {
             return 0;
         }

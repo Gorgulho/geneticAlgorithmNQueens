@@ -5,9 +5,10 @@ public class Population {
     private final Random generator = new Random();
 
     /**
-     * Population constructor
-     * @param l length of chromosome
-     * @param fitness
+     * Population constructor, generates a population with l*l size. Each Generated Indivdual is composed with a random
+     * permutation has the chromosome.
+     * @param l length of chromosome.
+     * @param fitness object responsible for calculate the Individuals fitness.
      */
     public Population(int l, IProblem fitness) {
         individuals = new ArrayList<>();
@@ -18,16 +19,16 @@ public class Population {
     }
 
     /**
-     * Population constructor
+     * Population constructor, takes resut ArrayLList and place it as the population.
      * @param result ArrayList of Individuals to be assigned to the population
      */
     public Population(ArrayList<Individual> result) {
-        this.individuals = result;
+        this.individuals = new ArrayList<>();
+        this.individuals.addAll(result);
     }
 
     /**
-     *
-     * @return list of Individuals in the population
+     * @return ArrayList of Individuals in the population
      */
     public ArrayList<Individual> getIndividuals() {
         return individuals;
@@ -54,6 +55,11 @@ public class Population {
         return v;
     }
 
+    /**
+     * Analyses all genes from every Individual in the Population and test the probability of that gene to mutate.
+     * For a gene to mutate, the value d, generated randomly, needs to be less than 0.8, otherwise the gene will not change.
+     * @return new population with all the Population Individuals after every mutation.
+     */
     public Population mutation(){
         ArrayList<Individual> result = new ArrayList<>();
         for(Individual ind : individuals){
@@ -62,7 +68,7 @@ public class Population {
                 double d = generator.nextDouble();
                 if(d < 0.8){
                     int r = (int) (i+Math.round(generator.nextDouble() * (ind.getChromossoma().length-1 - i)));
-                    a.swapMutation(i, r);
+                    a = a.swapMutation(i, r);
                 }
             }
             result.add(a);
@@ -70,6 +76,10 @@ public class Population {
         return new Population(result);
     }
 
+    /**
+     * Generates a random permutation and shuffle the population based on it.
+     * @return ArrayList with the suffled population.
+     */
     public ArrayList<Individual> randomPopulationPermutation() {
         ArrayList<Individual> result = new ArrayList<>();
         int length = this.individuals.size();
@@ -80,13 +90,19 @@ public class Population {
         return result;
     }
 
+    /**
+     * Shuffles the population randomly s times and make n/s tornaments, every tournament is between s Individuals,
+     * winning the best Individual with the best fitness.
+     * @param s tournament size
+     * @return new Population with the winning individuals.
+     */
     public Population selectionTournament(int s){
         ArrayList<Individual> winners = new ArrayList<>();
         ArrayList<Individual> permutations;
         for (int i = 0; i < s; i++){
             permutations = (randomPopulationPermutation());
             for (int j = 0; j < this.individuals.size(); j+=s){
-                int indexMax = getMaxFitnessGroup(permutations, j, j + s);
+                int indexMax = getMinFitnessGroup(permutations, j, j + s);
                 winners.add(permutations.get(indexMax));
             }
         }
@@ -94,18 +110,32 @@ public class Population {
         return new Population(winners);
     }
 
-    private int getMaxFitnessGroup(ArrayList<Individual> ind, int start, int end){
-        double max = ind.get(start).getFitness();
+    /**
+     * Analyses the population in a given range and returns the index of the Individual with the minor fitness.
+     * @param ind ArrayList with all the Indivuduals.
+     * @param start point where to start analysing.
+     * @param end point where to start analysing.
+     * @return Index of the ArryList where the best Individual is.
+     */
+    private int getMinFitnessGroup(ArrayList<Individual> ind, int start, int end){
+        double min = ind.get(start).getFitness();
         int id = start;
         for (int i = start + 1; i < end; i++){
-            if (ind.get(i).getFitness() > max){
-                max =  ind.get(i).getFitness();
+            if (ind.get(i).getFitness() < min){
+                min =  ind.get(i).getFitness();
                 id = i;
             }
         }
         return id;
     }
 
+    /**
+     *  Creates new array list that will contain de individuals after the crossover.
+     *  variable d will determine if crossover occurs.
+     *  each pair of individuals on the population is selected and if d < 0.95 cycle crossover occurs; if not then crossover
+     * doesn't occur and the new individuals are the same as the parents.
+     * @return new popultion resulting from crossover
+     */
     public Population crossOverCX() {
         ArrayList<Individual> result = new ArrayList<>();
         double d;
@@ -123,6 +153,13 @@ public class Population {
         return new Population(result);
     }
 
+    /**
+     *  Creates new array list that will contain de individuals after the crossover.
+     *  variable d will determine if crossover occurs.
+     *  each pair of individuals on the population is selected and if d < 0.95 partialy mapped crossover occurs; if not then crossover
+     * doesn't occur and the new individuals are the same as the parents.
+     * @return new popultion resulting from crossover
+     */
     public Population crossOverPMX() {
         ArrayList<Individual> result = new ArrayList<>();
         double d;
@@ -140,7 +177,7 @@ public class Population {
     }
 
     /**
-     * sets all fitness in the population
+     * Sets all fitness in the population
      * @param fitness
      * @return Individual which the fitness is zero, if it doesn't exist returns null
      */
@@ -156,7 +193,8 @@ public class Population {
     }
 
     /**
-     * @hineritDoc
+     * Returns a string representation of the object.
+     * @return a string representation of the object.
      */
     @Override
     public String toString() {

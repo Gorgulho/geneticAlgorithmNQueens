@@ -6,9 +6,13 @@ public class Individual {
     private int fitness;
 
     public Individual (int[] chromossoma) {
-        this.chromossoma = chromossoma;
+        this.chromossoma = chromossoma.clone();
     }
 
+    /**
+     * Initializes an Individual with all genes with -1.
+     * @param l lenght of the chromosome.
+     */
     public Individual (int l) {
         this.chromossoma = new int[l];
         for (int i = 0; i < l; i++) {
@@ -16,37 +20,40 @@ public class Individual {
         }
     }
 
+    /**
+     * Initializes the chromosome with the array given and calculates the fitness.
+     * @param chromossoma int array corresponding to the chromosome.
+     * @param fitness object responsible to calculate the Individuals fitness.
+     */
     public Individual (int[] chromossoma, IProblem fitness) {
-        this.chromossoma = chromossoma;
+        this.chromossoma = chromossoma.clone();
         this.fitness = fitness.fitness(this);
     }
 
     /**
-     *
-     * @return Integer array with the chromossome of the Individual
+     * @return Integer array with the chromossome of the Individual.
      */
     public int[] getChromossoma() {
         return chromossoma;
     }
 
     /**
-     *
-     * @return Fitness value from the Individual
+     * @return Fitness value from the Individual.
      */
     public int getFitness() {
         return this.fitness;
     }
 
     /**
-     * Recives an int value and sets it as the Individual Fitness
-     * @param f integer value correspondng to the Individual Fitness
+     * Recives an int value and sets it as the Individual Fitness.
+     * @param f integer value correspondng to the Individual Fitness.
      */
     public void setFitness (int f) {
         this.fitness = f;
     }
 
     /**
-     * Search in an Individual chromosome for the existence of a -1 value
+     * Search in an Individual chromosome for the existence of a -1 value.
      * @param filho Individual where the search will get place.
      * @return index where the -1 is, -1 otherwise.
      */
@@ -58,8 +65,6 @@ public class Individual {
         }
         return -1;
     }
-
-    //procura o indice do allele do cromossma2 que esta no cromossoma1
 
     /**
      * Search the index of the allele from chromossome2(p2) in chromossome1(p1).
@@ -77,11 +82,15 @@ public class Individual {
     }
 
     /**
-     *
+     * FindCycle will receive chromossomes p1, p2, and a new chromossome that will be the resut of the cycles from p1 and p2,
+     * result will be the first index of the chromosome of the child that is -1, and it will begin the cycle at result in p1 and p2,
+     * and it will save value of p1 in the child after searching the value in index of the arrray of p2 in p1, if allele1 is equals
+     * to the value of the p2 in a determined index it saves the cycle and stops.
+     * searchAllele1 will seache the value of chromosome in the index i of p2 in chromosome from p1
      * @param p1 first Individual(parent) needed to make the crossover.
      * @param p2 second Individual(parent) needed to make the crossover.
-     * @param result
-     * @param filho
+     * @param result First index of the offspring defined with -1.
+     * @param filho Indivudual that will recieve the values form the cycle.
      */
     public void findCycle (Individual p1, Individual p2, int result, Individual filho) {
         int allele1 = p1.chromossoma[result];
@@ -132,10 +141,12 @@ public class Individual {
      * @param i first index.
      * @param j second index.
      */
-    public void swapMutation(int i, int j){
-        int temp = this.chromossoma[i];
-        this.chromossoma[i] = this.chromossoma[j];
-        this.chromossoma[j] = temp;
+    public Individual swapMutation(int i, int j){
+        Individual a = new Individual(this.chromossoma);
+        int temp = a.chromossoma[i];
+        a.chromossoma[i] = a.chromossoma[j];
+        a.chromossoma[j] = temp;
+        return a;
     }
 
     /**

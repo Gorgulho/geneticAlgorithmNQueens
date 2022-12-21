@@ -5,9 +5,9 @@ public class SGA {
     IProblem fitness;
 
     /**
-     *SGA constructor
-     * @param l
-     * @param fitness
+     *SGA constructor.
+     * @param l lenght of the chromosome of the individuals.
+     * @param fitness object responsible to calculate the Individuals fitness.
      */
     public SGA(int l, IProblem fitness) {
         this.populacao = new Population(l, fitness);
@@ -15,9 +15,9 @@ public class SGA {
     }
 
     /**
-     * solves puzzle using sGA
-     * @param l length of chromosome
-     * @return solution of puzzle
+     * solves puzzle using sGA, doing a tournament, a crossOver and a mutation until the best solution.
+     * @param l length of chromosome.
+     * @return solution of puzzle.
      */
     public Individual solve(int l) {
         Individual l1 = null;

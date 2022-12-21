@@ -24,7 +24,7 @@ public class Individual {
 
     /**
      *
-     * @return
+     * @return Integer array with the chromossome of the Individual
      */
     public int[] getChromossoma() {
         return chromossoma;
@@ -32,24 +32,24 @@ public class Individual {
 
     /**
      *
-     * @return
+     * @return Fitness value from the Individual
      */
     public int getFitness() {
         return this.fitness;
     }
 
     /**
-     *
-     * @param f
+     * Recives an int value and sets it as the Individual Fitness
+     * @param f integer value correspondng to the Individual Fitness
      */
     public void setFitness (int f) {
         this.fitness = f;
     }
 
     /**
-     *
-     * @param filho
-     * @return
+     * Search in an Individual chromosome for the existence of a -1 value
+     * @param filho Individual where the search will get place.
+     * @return index where the -1 is.
      */
     private int definido (Individual filho) {
         for (int i = 0; i < filho.getChromossoma().length; i++) {
@@ -63,7 +63,7 @@ public class Individual {
     //procura o indice do allele do cromossma2 que esta no cromossoma1
 
     /**
-     * Seache the index of the allele from chromossome2 that is in chromossome1
+     * Search the index of the allele from chromossome2 that is in chromossome1
      * @param allele2
      * @param p1
      * @return
@@ -79,8 +79,8 @@ public class Individual {
 
     /**
      *
-     * @param p1
-     * @param p2
+     * @param p1 first Individual(parent) needed to make the crossover.
+     * @param p2 second Individual(parent) needed to make the crossover.
      * @param result
      * @param filho
      */
@@ -101,7 +101,7 @@ public class Individual {
     }
 
     /**
-     * Cycle Crossover (CX)is a genetic algorithm operator used to combine two parent solutions to create a new
+     * Cycle Crossover (CX) is a genetic algorithm operator used to combine two parent solutions to create a new
      * offspring solution. Works by identifying cycles of values in two parents and swaping them to create the offspring.
      * First identify the cycles of values in the two parent, next, we swap the values in the cycles to create the offspring
      * The first Individual(parent) is p1, and it's the Individual who calls the method.
@@ -206,7 +206,7 @@ public class Individual {
 
     /**
      * Check if array contains a specified value.
-     * @param arr Integer array where the serache will get place.
+     * @param arr Integer array where the search will get place.
      * @param value Value that we want to check if existes in arr.
      * @return True if the value was found, False otherwise.
      */
@@ -219,7 +219,7 @@ public class Individual {
 
     /**
      * It recieves an Integer array where the searche will be done.
-     * @param arr Integer array where the serache will get place.
+     * @param arr Integer array where the search will get place.
      * @param val Value that we want to check the ocurrences in arr.
      * @return ArrayList with all the indexes with the value -1.
      */

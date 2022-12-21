@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Individual {
@@ -49,7 +48,7 @@ public class Individual {
     /**
      * Search in an Individual chromosome for the existence of a -1 value
      * @param filho Individual where the search will get place.
-     * @return index where the -1 is.
+     * @return index where the -1 is, -1 otherwise.
      */
     private int definido (Individual filho) {
         for (int i = 0; i < filho.getChromossoma().length; i++) {
@@ -63,10 +62,10 @@ public class Individual {
     //procura o indice do allele do cromossma2 que esta no cromossoma1
 
     /**
-     * Search the index of the allele from chromossome2 that is in chromossome1
-     * @param allele2
-     * @param p1
-     * @return
+     * Search the index of the allele from chromossome2(p2) in chromossome1(p1).
+     * @param allele2 allele value to search in p1 chromossome.
+     * @param p1 Individual that will be searched.
+     * @return index where the allele value is, -1 otherwise.
      */
     public int searchAllele1 (int allele2, Individual p1) {
         for (int i = 0; i < p1.chromossoma.length; i++) {

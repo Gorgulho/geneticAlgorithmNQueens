@@ -63,7 +63,7 @@ public class Individual {
     //procura o indice do allele do cromossma2 que esta no cromossoma1
 
     /**
-     *
+     * Seache the index of the allele from chromossome2 that is in chromossome1
      * @param allele2
      * @param p1
      * @return

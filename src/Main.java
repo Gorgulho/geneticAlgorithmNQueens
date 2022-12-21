@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Main {
 
+    /**
+     * Function used to generate some examples of n-queens boards and see the time needed for each test.
+     */
     private static void testSomeValues(){
         for (int i = 4; i <= 24; i+=4){
             SGA a = new SGA(i, new Fitness());

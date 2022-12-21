@@ -20,7 +20,7 @@ public class Population {
 
     /**
      * Population constructor, takes resut ArrayLList and place it as the population.
-     * @param result ArrayList of Individuals to be assigned to the population
+     * @param result ArrayList of Individuals to be assigned to the population.
      */
     public Population(ArrayList<Individual> result) {
         this.individuals = new ArrayList<>();
@@ -28,16 +28,16 @@ public class Population {
     }
 
     /**
-     * @return ArrayList of Individuals in the population
+     * @return ArrayList of Individuals in the population.
      */
     public ArrayList<Individual> getIndividuals() {
         return individuals;
     }
 
     /**
-     * int array of length 'n' is created and shuffled
-     * @param n length of array being returned
-     * @return int array
+     * int array of length 'n' is created with a permutaion, starting at 0, and shuffled.
+     * @param n length of array being returned.
+     * @return int array with the random permutation.
      */
     public int[] randPermutation(int n){
         int[] v = new int[n];
@@ -93,7 +93,7 @@ public class Population {
     /**
      * Shuffles the population randomly s times and make n/s tornaments, every tournament is between s Individuals,
      * winning the best Individual with the best fitness.
-     * @param s tournament size
+     * @param s tournament size.
      * @return new Population with the winning individuals.
      */
     public Population selectionTournament(int s){
@@ -134,7 +134,7 @@ public class Population {
      *  variable d will determine if crossover occurs.
      *  each pair of individuals on the population is selected and if d < 0.95 cycle crossover occurs; if not then crossover
      * doesn't occur and the new individuals are the same as the parents.
-     * @return new popultion resulting from crossover
+     * @return new popultion resulting from crossover.
      */
     public Population crossOverCX() {
         ArrayList<Individual> result = new ArrayList<>();
@@ -158,7 +158,7 @@ public class Population {
      *  variable d will determine if crossover occurs.
      *  each pair of individuals on the population is selected and if d < 0.95 partialy mapped crossover occurs; if not then crossover
      * doesn't occur and the new individuals are the same as the parents.
-     * @return new popultion resulting from crossover
+     * @return new popultion resulting from crossover.
      */
     public Population crossOverPMX() {
         ArrayList<Individual> result = new ArrayList<>();
@@ -177,8 +177,8 @@ public class Population {
     }
 
     /**
-     * Sets all fitness in the population
-     * @param fitness
+     * Sets all fitness in the population.
+     * @param fitness object responsible to calculate the Individuals fitness.
      * @return Individual which the fitness is zero, if it doesn't exist returns null
      */
     public Individual calculateAll (IProblem fitness) {
